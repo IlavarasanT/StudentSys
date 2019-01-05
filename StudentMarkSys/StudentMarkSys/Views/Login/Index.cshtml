@@ -1,0 +1,144 @@
+﻿@model StudentMarkSys.Models.LoginModel
+@{
+    ViewBag.Title = "Index";
+}
+<body style="background-image:url(https://ideasphere.com/wp-content/uploads/2016/08/Savin-NY-Website-Background-Web-1.jpg)">
+    <center>
+        <h2>Register</h2>
+        @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { id = "formId" }))
+        {
+            <div class="jumbotron" />
+            <br>
+            <table>
+                <tr>
+                    <td>
+                        <label>FirstName</label>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(e => e.FirstName, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>LastName</label></td>
+                    <td>@Html.TextBoxFor(e => e.LastName, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <td><label>Email</label></td>
+                    <td>
+                        @Html.TextBoxFor(e => e.Email, new { @class = "form-control", id = "EmailId", @onchange = "CheckEmailExist()" })
+                        <label id="lblEmailAdddress" style="display:none" ;></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Password</label>
+                    </td>
+                    <td>@Html.PasswordFor(e => e.PassWord, new { @class = "form-control" })</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>ConfirmPassword</label>
+                    </td>
+                    <td>@Html.PasswordFor(e => e.ConfirmPassWord, new { @class = "form-control" })</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="button" class="btn btn-success" onclick="Register()" value="Register" id="btnSave">
+                    </td>
+                </tr>
+            </table>
+        }
+    </center>
+</body>
+    <script type="text/javascript">
+        $(function () {
+            var form = $("#formId").get(0);
+            $.removeData(form, "validator");
+            $("#formId").validate({
+                ignore: ":not(:visible)",
+                rules: {
+                    FirstName: {
+                        required: true,
+                        regex: /^[a-zA-Z\s]+$/
+                    },
+                    LastName: {
+                        required: true,
+                        regex: /^[a-zA-Z\s]+$/
+                    },
+                    Email: {
+                        required: true,
+                        email: true
+                    },
+                    PassWord: {
+                        required: true
+                    },
+                    ConfirmPassWord:
+                        {
+                            required: true,
+                            equalTo: "#PassWord"
+                        }
+
+                },
+                messages: {
+                    FirstName: {
+                        requied: "FirstName is Required",
+                        regex: "Enter the Characters only "
+                    },
+                    LastName: {
+                        requied: "LastName is Required",
+                        regex: "Enter the Character only"
+                    },
+                    Email: {
+                        requied: "Enter Email Address",
+                        email: "Enter the valid Email Address"
+                    },
+                    PassWord: {
+                        requied: "Enter the Password"
+                    },
+                    ConfirmPassWord:
+                        {
+                            requied: "Enter the confirm Password",
+                            equalTo: "Enter the match password"
+                        }
+                },
+            });
+        });
+        function Register() {
+            if ($("#formId").valid()) {
+                var form = $("#formId").serialize();
+                $.ajax({
+                    url: "/Login/Index",
+                    type: "POST",
+                    data: form,
+                    success: function (data) {
+                        $("#formId").trigger("reset");
+                        //toastr.success("Data Saved Successfully");
+                        location.href = "/Login/Loginval"
+                    }
+                });
+            };
+        }
+        function CheckEmailExist() {
+
+            $.ajax({
+                url: "/Login/Emailvalidation",
+                type: "GET",
+                data: { email: $("#EmailId").val() },
+                success: function (data) {
+                    if (data) {
+                        $("#lblEmailAdddress").show();
+                        $("#lblEmailAdddress").html("Email Already Exist");                       
+                    }
+                    else {
+                        $("#lblEmailAdddress").hide();
+                        $("#btnSave").removeAttr("disabled");
+
+                    }
+
+                }
+
+            });
+        }
+
+    </script>

@@ -1,0 +1,99 @@
+﻿@model StudentMarkSys.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+}
+<center><br>
+ 
+    @using (Html.BeginForm("Loginval", "Login", FormMethod.Post, new { @id = "LoginForm" }))
+    {
+        <div class="jumbotron" />
+        <h2>Login</h2>
+
+        <br />
+            <table>
+                <tr>
+                    <td>Email</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>Password :</td>
+                    <td>
+                        @Html.PasswordFor(m => m.PassWord, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button" class="btn btn-info btn-lg" id="btnsave" value="Login" onclick="btnId()" />
+
+                        @*<button type="submit" onclick="btnId()" >LogIn</button>*@
+                    </td>
+                    <td>@Html.ActionLink("Register", "Index") </td>
+                </tr>
+         
+
+            </table>
+            <div />
+    }
+</center>
+
+
+
+        <script type="text/javascript">
+            $(function () {
+                var form = $("#LoginForm").get(0);
+                $.removeData(form, "validator");
+                $("#LoginForm").validate({
+                    ignore: ":not(:visible)",
+                    rules: {
+                        Email: {
+                            required: true,
+                            email: true
+                        },
+                        PassWord: {
+                            required: true
+                        }
+
+                    },
+                    messages: {
+                        required: "Email is Required",
+                        email: "Enter the Valid Email Address"
+                    },
+                    PassWord: {
+                        required: "Password is Required"
+                    }
+                });
+
+
+            });
+
+            function btnId() {
+                if ($("#LoginForm").valid()) {
+                    var form = $("#LoginForm").serialize();
+                    $.ajax({
+                        url: "/Login/Loginval",
+                        type: "POST",
+                        data: form,
+                        success: function (data) {
+                            if (data) {
+                                debugger;
+                                location.href = "/Student/Create";
+                                return false;
+                            }
+                            else {
+                                $("#labelid").show();
+                                $("#labelid").html("Please enter a valid password");
+                            }
+                        }
+                    });
+                }
+
+
+            }
+
+        </script>
+
+
+
+

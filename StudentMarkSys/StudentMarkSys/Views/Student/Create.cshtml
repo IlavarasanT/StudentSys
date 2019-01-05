@@ -1,0 +1,99 @@
+﻿@model StudentMarkSys.Models.StudentMark
+@{
+    ViewBag.Title = "Create";
+}
+
+@{
+    var dropDownList = ViewBag.drop as IEnumerable<SelectListItem>;
+}
+<h2>Create</h2>
+@using (Html.BeginForm("Create", "Student", FormMethod.Post, new { @id = "savedata" }))
+{
+
+    <div class="jumbotron">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-bullhorn"></i></span>
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @name = "Name", id = "Name", @placeholder = "Name" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @name = "Email", id = "Email", @placeholder = "EnterEmail" })
+            </div>
+        </div>
+        <label>Department:</label>
+        @Html.DropDownListFor(m => m.Dep_Id, dropDownList, "--select--")
+        <br/>
+        <span>
+            <label>Gender:</label>
+            
+                @Html.Label("Male")
+                @Html.RadioButtonFor(m => m.Gender, "Male")
+                @Html.Label("Female")
+                @Html.RadioButtonFor(m => m.Gender, "Female")
+                <br />
+            </span>
+       
+        <input type="submit"  onclick="savestudentdetail()">
+  
+    </div>
+}
+
+     @Scripts.Render("~/bundles/jqueryval")
+
+<script >
+    $("#savedata").validate({
+        ignore: ":not(:visible)",
+        rules:
+            {
+                Name:
+                    {
+                        required: true,
+                       
+                    },
+                Email:
+                   {
+                       required:true
+                   },
+                Gender:
+                  {
+                      required: true
+                  },
+                Dep_Id: {
+                    required: true
+                }
+            },
+        messages:
+            {
+                Name:
+                    {
+                        required: "Please Enter Name",
+                       
+                    },
+                Email:
+                    {
+                        required: "Please Enter Email"
+                    },
+                Gender:
+                 {
+                     required: "Please Choose Gender "
+                 },
+                Dep_Id: {
+                    required: "Please Choose Department  "
+                }
+
+
+            }
+
+    });
+
+    function savestudentdetail()
+    {
+       if($("#savedata").valid())
+        {
+
+        }
+    }
+</script>

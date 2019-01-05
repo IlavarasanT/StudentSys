@@ -1,0 +1,22 @@
+﻿@model StudentMarkSys.Models.StudentMark
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+<div class="jumbotron">
+   
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @name = "Email", id = "Email", @placeholder = "EnterEmail" })
+        </div>
+    </div>
+  <div>@Html.PasswordFor(m=>m.Password)
+    </div>
+ 
+
+    <input type="submit" onclick="savestudentdetail()">
+
+</div>

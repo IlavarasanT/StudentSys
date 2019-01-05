@@ -1,0 +1,108 @@
+﻿@model List<StudentMarkSys.Models.StudentMarks>
+
+<h1 style="">Show Marks</h1>
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    </head>
+@{ 
+
+    var a = ViewBag.Total;
+}
+<body style="background-image:url(https://ideasphere.com/wp-content/uploads/2016/08/Savin-NY-Website-Background-Web-1.jpg)" >
+
+  
+
+
+    <table class="table table-bordered"  id="customers">
+        <thead>
+            <tr>
+                <th>Sn</th>
+                <th>Name</th>
+                <th>Mark1</th>
+                <th>Mark2</th>
+                <th>Total </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                decimal b; int i = 1;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @i
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Mark1)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Mark2)
+                </td>
+                                    <td>
+                    @{ b = item.Mark1 + item.Mark2; }
+                    @b
+
+                </td>
+
+                <td>
+                   
+
+                  
+                       @Html.ActionLink("Delete Data", "DeleteMark", new { id = item.Mark_Id }, new
+               
+                    {
+                   id = item.Mark_Id,
+                   onclick = "return confirm('Are you sure to delete?');"
+               }) 
+
+</td>
+            </tr>
+                            i++;
+                        }
+
+        </tbody>
+
+    </table>
+    </body>
+
+<style>
+
+    h1 {
+        text-align: center;
+        text-transform: uppercase;
+        color: #77776E;
+    }
+
+    #customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #77776E;
+  color: white;
+}
+
+
+
+
+    </style>
+

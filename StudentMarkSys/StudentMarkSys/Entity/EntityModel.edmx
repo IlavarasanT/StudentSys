@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MysqlsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Login_Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="First_Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Last_Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="PassWord" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Is_Agree" Type="bit" Nullable="false" />
+          <Property Name="Is_Deleted" Type="bit" Nullable="false" />
+          <Property Name="Current_Time_Stamp" Type="datetime" Nullable="false" />
+          <Property Name="Updated_Time_Stamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student_Dep">
+          <Key>
+            <PropertyRef Name="Dep_Id" />
+          </Key>
+          <Property Name="Dep_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Dep_Name" Type="varchar" MaxLength="8" />
+          <Property Name="Created_Time_Stamp" Type="datetime" />
+          <Property Name="Updated_Time_Stamp" Type="datetime" />
+          <Property Name="Is_Deleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="Student_Detail">
+          <Key>
+            <PropertyRef Name="Std_Id" />
+          </Key>
+          <Property Name="Std_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Dep_Id" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="30" />
+          <Property Name="Email" Type="varchar" MaxLength="40" />
+          <Property Name="Gender" Type="varchar" MaxLength="8" />
+          <Property Name="Is_Delete" Type="bit" />
+        </EntityType>
+        <EntityType Name="Student_Mark">
+          <Key>
+            <PropertyRef Name="Mark_Id" />
+          </Key>
+          <Property Name="Mark_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Std_Id" Type="int" Nullable="false" />
+          <Property Name="Mark1" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Mark2" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Is_Delete" Type="bit" />
+        </EntityType>
+        <Association Name="FK__Student_D__Dep_I__15502E78">
+          <End Role="Student_Dep" Type="Self.Student_Dep" Multiplicity="0..1" />
+          <End Role="Student_Detail" Type="Self.Student_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student_Dep">
+              <PropertyRef Name="Dep_Id" />
+            </Principal>
+            <Dependent Role="Student_Detail">
+              <PropertyRef Name="Dep_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student_M__Std_I__182C9B23">
+          <End Role="Student_Detail" Type="Self.Student_Detail" Multiplicity="1" />
+          <End Role="Student_Mark" Type="Self.Student_Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student_Detail">
+              <PropertyRef Name="Std_Id" />
+            </Principal>
+            <Dependent Role="Student_Mark">
+              <PropertyRef Name="Std_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MysqlsModelStoreContainer">
+          <EntitySet Name="Login_Table" EntityType="Self.Login_Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student_Dep" EntityType="Self.Student_Dep" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student_Detail" EntityType="Self.Student_Detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student_Mark" EntityType="Self.Student_Mark" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Student_D__Dep_I__15502E78" Association="Self.FK__Student_D__Dep_I__15502E78">
+            <End Role="Student_Dep" EntitySet="Student_Dep" />
+            <End Role="Student_Detail" EntitySet="Student_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student_M__Std_I__182C9B23" Association="Self.FK__Student_M__Std_I__182C9B23">
+            <End Role="Student_Detail" EntitySet="Student_Detail" />
+            <End Role="Student_Mark" EntitySet="Student_Mark" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MysqlsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MysqlsEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Login_Table" EntityType="MysqlsModel.Login_Table" />
+          <EntitySet Name="Student_Dep" EntityType="MysqlsModel.Student_Dep" />
+          <EntitySet Name="Student_Detail" EntityType="MysqlsModel.Student_Detail" />
+          <EntitySet Name="Student_Mark" EntityType="MysqlsModel.Student_Mark" />
+          <AssociationSet Name="FK__Student_D__Dep_I__15502E78" Association="MysqlsModel.FK__Student_D__Dep_I__15502E78">
+            <End Role="Student_Dep" EntitySet="Student_Dep" />
+            <End Role="Student_Detail" EntitySet="Student_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student_M__Std_I__182C9B23" Association="MysqlsModel.FK__Student_M__Std_I__182C9B23">
+            <End Role="Student_Detail" EntitySet="Student_Detail" />
+            <End Role="Student_Mark" EntitySet="Student_Mark" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Login_Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="First_Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Last_Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="PassWord" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Is_Agree" Type="Boolean" Nullable="false" />
+          <Property Name="Is_Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="Current_Time_Stamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Updated_Time_Stamp" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Student_Dep">
+          <Key>
+            <PropertyRef Name="Dep_Id" />
+          </Key>
+          <Property Name="Dep_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dep_Name" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Created_Time_Stamp" Type="DateTime" Precision="3" />
+          <Property Name="Updated_Time_Stamp" Type="DateTime" Precision="3" />
+          <Property Name="Is_Deleted" Type="Boolean" />
+          <NavigationProperty Name="Student_Detail" Relationship="MysqlsModel.FK__Student_D__Dep_I__15502E78" FromRole="Student_Dep" ToRole="Student_Detail" />
+        </EntityType>
+        <EntityType Name="Student_Detail">
+          <Key>
+            <PropertyRef Name="Std_Id" />
+          </Key>
+          <Property Name="Std_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dep_Id" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Is_Delete" Type="Boolean" />
+          <NavigationProperty Name="Student_Dep" Relationship="MysqlsModel.FK__Student_D__Dep_I__15502E78" FromRole="Student_Detail" ToRole="Student_Dep" />
+          <NavigationProperty Name="Student_Mark" Relationship="MysqlsModel.FK__Student_M__Std_I__182C9B23" FromRole="Student_Detail" ToRole="Student_Mark" />
+        </EntityType>
+        <EntityType Name="Student_Mark">
+          <Key>
+            <PropertyRef Name="Mark_Id" />
+          </Key>
+          <Property Name="Mark_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Std_Id" Type="Int32" Nullable="false" />
+          <Property Name="Mark1" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Mark2" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Is_Delete" Type="Boolean" />
+          <NavigationProperty Name="Student_Detail" Relationship="MysqlsModel.FK__Student_M__Std_I__182C9B23" FromRole="Student_Mark" ToRole="Student_Detail" />
+        </EntityType>
+        <Association Name="FK__Student_D__Dep_I__15502E78">
+          <End Type="MysqlsModel.Student_Dep" Role="Student_Dep" Multiplicity="0..1" />
+          <End Type="MysqlsModel.Student_Detail" Role="Student_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student_Dep">
+              <PropertyRef Name="Dep_Id" />
+            </Principal>
+            <Dependent Role="Student_Detail">
+              <PropertyRef Name="Dep_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student_M__Std_I__182C9B23">
+          <End Type="MysqlsModel.Student_Detail" Role="Student_Detail" Multiplicity="1" />
+          <End Type="MysqlsModel.Student_Mark" Role="Student_Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student_Detail">
+              <PropertyRef Name="Std_Id" />
+            </Principal>
+            <Dependent Role="Student_Mark">
+              <PropertyRef Name="Std_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MysqlsModelStoreContainer" CdmEntityContainer="MysqlsEntities1">
+          <EntitySetMapping Name="Login_Table">
+            <EntityTypeMapping TypeName="MysqlsModel.Login_Table">
+              <MappingFragment StoreEntitySet="Login_Table">
+                <ScalarProperty Name="Updated_Time_Stamp" ColumnName="Updated_Time_Stamp" />
+                <ScalarProperty Name="Current_Time_Stamp" ColumnName="Current_Time_Stamp" />
+                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+                <ScalarProperty Name="Is_Agree" ColumnName="Is_Agree" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student_Dep">
+            <EntityTypeMapping TypeName="MysqlsModel.Student_Dep">
+              <MappingFragment StoreEntitySet="Student_Dep">
+                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+                <ScalarProperty Name="Updated_Time_Stamp" ColumnName="Updated_Time_Stamp" />
+                <ScalarProperty Name="Created_Time_Stamp" ColumnName="Created_Time_Stamp" />
+                <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+                <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student_Detail">
+            <EntityTypeMapping TypeName="MysqlsModel.Student_Detail">
+              <MappingFragment StoreEntitySet="Student_Detail">
+                <ScalarProperty Name="Is_Delete" ColumnName="Is_Delete" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />
+                <ScalarProperty Name="Std_Id" ColumnName="Std_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student_Mark">
+            <EntityTypeMapping TypeName="MysqlsModel.Student_Mark">
+              <MappingFragment StoreEntitySet="Student_Mark">
+                <ScalarProperty Name="Is_Delete" ColumnName="Is_Delete" />
+                <ScalarProperty Name="Mark2" ColumnName="Mark2" />
+                <ScalarProperty Name="Mark1" ColumnName="Mark1" />
+                <ScalarProperty Name="Std_Id" ColumnName="Std_Id" />
+                <ScalarProperty Name="Mark_Id" ColumnName="Mark_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,89 @@
+﻿@model List<StudentMarkSys.Models.StudentMark>
+@{
+    ViewBag.Title = "ShowStudentDetails";
+}
+
+<h2>show</h2>
+
+
+
+
+<div class="col col-xs-6 text-right">
+    <a href="@Url.Action("Create")" class="btn btn-sm btn-primary btn-create">Add Student</a>  <a href="@Url.Action("Addmark")" class="btn btn-sm btn-primary btn-create">Marks</a>
+</div>
+<!-- Modal -->
+<div id="savedata" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+
+            <th>Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>DepartName</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(m => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => item.Email)
+                </td>
+                <td>
+                    @item.Gender
+                </td>
+
+                <td>
+                    @item.Dept_Name
+                </td>
+
+
+                <td>
+                    @Html.ActionLink("Delete Data", "DeleteStudent", new { id= item.Std_Id}, new{
+                   id = item.Std_Id,
+                   onclick = "return confirm('Are you sure?');"
+               })
+                  
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script type="text/javascript">
+
+    $(function () { });
+
+    function ShowModal()
+    {
+        $("#myModal").modal("show");
+        //$.ajax({
+        //})
+    }
+
+</script>
